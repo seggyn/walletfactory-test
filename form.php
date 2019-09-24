@@ -1,17 +1,21 @@
 <?php
 
+$PUBLIC_KEY = file_get_contents('rsa/walletfactory.pub');
+
 $URL = 'http://localhost:8887/walletfactory_test/verify.php';
 $SALT = 'salt';
 
 $raw_post_request = file_get_contents('php://input');
 
-$data = json_decode($raw_post_request);
+$array = json_decode($raw_post_request);
+$data = $array->name.$array->birthday.$array->message;
 
-$hash = md5($SALT.$data->name.$data->email.$data->birthday.$data->message.$SALT);
+$pk  = openssl_get_publickey($PUBLIC_KEY);
+openssl_public_encrypt($data, $encrypted, $pk);
 
-$data->hash = $hash;
+$array->hash = chunk_split(base64_encode($encrypted));
 
-$json = json_encode($data);
+$json = json_encode($array);
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_POST, 1);
