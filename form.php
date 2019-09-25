@@ -8,7 +8,7 @@ $SALT = 'salt';
 $raw_post_request = file_get_contents('php://input');
 
 $array = json_decode($raw_post_request);
-$data = $array->name.$array->birthday.$array->message;
+$data = $array->name.$array->email.$array->birthday.$array->message;
 
 $pk  = openssl_get_publickey($PUBLIC_KEY);
 openssl_public_encrypt($data, $encrypted, $pk);

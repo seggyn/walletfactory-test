@@ -6,7 +6,7 @@ $SALT = 'salt';
 $raw_post_request = file_get_contents('php://input');
 
 $array = json_decode($raw_post_request);
-$verify_data = $array->name.$array->birthday.$array->message;
+$verify_data = $array->name.$array->email.$array->birthday.$array->message;
 
 $data = $array->hash;
 
@@ -18,4 +18,3 @@ if ($verify_data == $result) {
 } else {
     echo json_encode(['status' => 0, 'message' => 'Провал']);
 }
-
