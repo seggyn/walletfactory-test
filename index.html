@@ -6,7 +6,7 @@
 <body>
 
     <div class="container">
-        <div class="row d-flex justify-content-center mt-2">
+        <div class="row mt-2">
             <div class="col-md-6">
                 <div class="form_main">
                     <h4 class="heading text-center">Форма</h4>
@@ -28,12 +28,15 @@
                                 <label for="message">Сообщение</label>
                                 <textarea id="message" name="message" class="form-control" placeholder="Текст" maxlength="70" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                            <button type="button" class="btn btn-secondary btn-get-data">Получить все данные</button>
                         </form>
                     </div>
                 </div>
                 <div class="result p-2 mt-2 text-center text-white">
                 </div>
+            </div>
+            <div class="col-md-6 data">
             </div>
         </div>
     </div>
@@ -63,6 +66,16 @@
                            $('.result').removeClass('bg-success');
                            $('.result').addClass('bg-danger');
                        }
+                   }
+               });
+           });
+           $('.btn-get-data').click(function () {
+               $.ajax({
+                   url: 'form.php',
+                   dataType: "json",
+                   method: 'GET',
+                   success: function(result) {
+                       $('.data').html(result['data'].join('<br/>'));
                    }
                });
            })
