@@ -7,6 +7,7 @@ class DB
     private $conn;
 
     private static $DB_HOST = '';
+    private static $DB_PORT = '';
     private static $DB_NAME = '';
     private static $DB_USER = '';
     private static $DB_PASS = '';
@@ -14,7 +15,7 @@ class DB
     public function __construct()
     {
         $this->conn = new PDO(
-            'mysql:host=' . self::$DB_HOST . ';dbname=' . self::$DB_NAME,
+            'pgsql:host=' . self::$DB_HOST . ';dbname=' . self::$DB_NAME. ';port=' .self::$DB_PORT,
             self::$DB_USER, self::$DB_PASS,
             [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]
         );
@@ -29,8 +30,9 @@ class DB
         return self::$instance;
     }
 
-    public static function connect($host, $db_name, $user, $password) {
+    public static function connect($host, $port, $db_name, $user, $password) {
         self::$DB_HOST = $host;
+        self::$DB_PORT = $port;
         self::$DB_NAME = $db_name;
         self::$DB_USER = $user;
         self::$DB_PASS = $password;

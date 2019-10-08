@@ -9,7 +9,7 @@ $PUBLIC_KEY = file_get_contents('rsa/walletfactory.pub');
 
 $SALT = 'salt';
 
-$db = DB::connect('localhost:8889', 'walletfactory_test', 'root', 'root');
+$db = DB::connect('localhost', '5433', 'walletfactory_test', 'postgres', 'postgres');
 
 $raw_post_request = file_get_contents('php://input');
 
